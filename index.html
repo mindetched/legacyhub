@@ -5,12 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Legacy Hub</title>
     
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #050505 !important; /* Forces Black Background */
+            color: #d1d5db !important; /* Forces Light Text */
+            font-family: sans-serif;
+        }
+        
+        /* Custom Font Loading */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap');
+
+        /* Backup Styles in case Tailwind fails */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Utility to hide elements */
+        .hidden { display: none !important; }
+    </style>
+
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
@@ -20,17 +40,16 @@
                         heading: ['Space Grotesk', 'sans-serif'],
                         inter: ['Inter', 'sans-serif'],
                     },
+                    colors: {
+                        gold: '#ca8a04',
+                    },
                     animation: {
                         'shine': 'shine 4s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'fade-in': 'fadeIn 1s ease-out forwards',
-                        'popup': 'slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'shimmer': 'shimmer 3s infinite linear',
                     },
                     keyframes: {
-                        shine: {
-                            'to': { backgroundPosition: '200% center' },
-                        },
+                        shine: { 'to': { backgroundPosition: '200% center' } },
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' },
@@ -38,14 +57,6 @@
                         fadeIn: {
                             'from': { opacity: '0', transform: 'translateY(10px)' },
                             'to': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        slideUpFade: {
-                            '0%': { opacity: '0', transform: 'translateY(20px) scale(0.95)' },
-                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
-                        },
-                        shimmer: {
-                            '0%': { transform: 'translateX(-150%)' },
-                            '100%': { transform: 'translateX(150%)' },
                         }
                     }
                 }
@@ -54,12 +65,7 @@
     </script>
 
     <style>
-        /* Custom Styles that Tailwind config doesn't cover easily */
-        body {
-            background-color: #050505;
-            color: #d1d5db;
-        }
-        
+        /* Specific Visual Effects */
         .gold-gradient {
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             background-size: 200% auto;
@@ -69,32 +75,15 @@
             animation: shine 4s linear infinite;
         }
         
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
         .shimmer-effect {
             position: absolute;
             inset: 0;
             background: linear-gradient(90deg, transparent, rgba(191, 149, 63, 0.05), rgba(252, 246, 186, 0.1), rgba(191, 149, 63, 0.05), transparent);
             animation: shimmer 3s infinite linear;
         }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
-        ::-webkit-scrollbar-thumb { background: rgba(202, 138, 4, 0.5); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(202, 138, 4, 0.8); }
-        
-        ::selection { background: #ca8a04; color: black; }
-        
-        /* Utility to hide elements */
-        .hidden { display: none !important; }
     </style>
 </head>
-<body class="min-h-screen font-inter overflow-x-hidden relative">
+<body class="min-h-screen font-inter overflow-x-hidden relative bg-[#050505] text-gray-300">
 
     <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -213,7 +202,7 @@
                                     <div class="font-heading flex items-center justify-center md:justify-start gap-2 text-yellow-500 text-[10px] font-bold tracking-widest uppercase">
                                         <i data-lucide="check-circle-2" class="w-3 h-3"></i> Instant Digital Delivery
                                     </div>
-                                    <p className="text-gray-400 font-inter leading-relaxed text-sm">
+                                    <p class="text-gray-400 font-inter leading-relaxed text-sm">
                                         Stop burning hours on edits that the algorithm forgets in a day. With The Creator Vault, you gain instant access to 1,000+ high-retention assets designed to build a high-authority brand on autopilot. Secure your lifetime access now at the lowest price possible and start dominating the feed.
                                     </p>
                                 </div>
@@ -284,7 +273,7 @@
                         <li><strong class="text-gray-200">Automated Information:</strong> We automatically collect certain information about your device.</li>
                     </ul>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 
@@ -305,7 +294,7 @@
                     <h3 class="text-white font-heading font-bold text-lg mb-3">2. Intellectual Property</h3>
                     <p>All content is the property of The Legacy Hub and is protected by copyright laws.</p>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 
@@ -318,7 +307,6 @@
             const popup = document.getElementById(id);
             popup.classList.remove('hidden');
             
-            // Special handling for the contact toast to auto-hide
             if (id === 'contact-popup') {
                 setTimeout(() => {
                     popup.classList.add('hidden');
