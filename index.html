@@ -5,32 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Legacy Hub</title>
     
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            background-color: #050505 !important; /* Forces Black Background */
-            color: #d1d5db !important; /* Forces Light Text */
-            font-family: sans-serif;
-        }
-        
-        /* Custom Font Loading */
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap');
-
-        /* Backup Styles in case Tailwind fails */
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        /* Utility to hide elements */
-        .hidden { display: none !important; }
-    </style>
-
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script src="https://unpkg.com/lucide@latest"></script>
     
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -40,23 +20,31 @@
                         heading: ['Space Grotesk', 'sans-serif'],
                         inter: ['Inter', 'sans-serif'],
                     },
-                    colors: {
-                        gold: '#ca8a04',
-                    },
                     animation: {
                         'shine': 'shine 4s linear infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'fade-in': 'fadeIn 1s ease-out forwards',
+                        'popup': 'slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         shine: { 'to': { backgroundPosition: '200% center' } },
                         float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '0%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' },
+                            '100%': { transform: 'translateY(0px)' },
                         },
                         fadeIn: {
                             'from': { opacity: '0', transform: 'translateY(10px)' },
                             'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUpFade: {
+                            '0%': { opacity: '0', transform: 'translateY(20px) scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        shimmer: {
+                            '0%': { transform: 'translateX(-150%)' },
+                            '100%': { transform: 'translateX(150%)' },
                         }
                     }
                 }
@@ -65,25 +53,81 @@
     </script>
 
     <style>
-        /* Specific Visual Effects */
+        body {
+            background-color: #050505;
+            color: #d1d5db;
+        }
+
+        /* Gold Gradient Text */
         .gold-gradient {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            background: linear-gradient(
+                to right,
+                #bf953f,
+                #fcf6ba,
+                #b38728,
+                #fbf5b7,
+                #aa771c
+            );
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: shine 4s linear infinite;
         }
-        
+
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Shimmer Effect */
         .shimmer-effect {
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(191, 149, 63, 0.05), rgba(252, 246, 186, 0.1), rgba(191, 149, 63, 0.05), transparent);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(191, 149, 63, 0.05),
+                rgba(252, 246, 186, 0.1),
+                rgba(191, 149, 63, 0.05),
+                transparent
+            );
             animation: shimmer 3s infinite linear;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(202, 138, 4, 0.5);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(202, 138, 4, 0.8);
+        }
+
+        /* Selection Color */
+        ::selection {
+            background: #ca8a04;
+            color: black;
+        }
+
+        /* Utility */
+        .hidden { display: none !important; }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-150%); }
+            100% { transform: translateX(150%); }
         }
     </style>
 </head>
-<body class="min-h-screen font-inter overflow-x-hidden relative bg-[#050505] text-gray-300">
+<body class="min-h-screen font-inter overflow-x-hidden relative selection:bg-yellow-600 selection:text-black">
 
     <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -101,7 +145,7 @@
         <div class="max-w-4xl mx-auto space-y-24">
             
             <section class="text-center space-y-8 animate-fade-in relative z-10">
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-yellow-600/20 blur-[120px] rounded-full pointer-events-none -z-10 animate-pulse"></div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-yellow-600/20 blur-[120px] rounded-full pointer-events-none -z-10 animate-pulse-slow"></div>
 
                 <div class="inline-block px-3 py-1 border border-yellow-600/30 rounded-full bg-yellow-900/10 mb-4 backdrop-blur-sm">
                     <span class="font-heading text-[10px] font-bold tracking-[0.3em] text-yellow-500 uppercase">
@@ -146,15 +190,18 @@
                         </div>
 
                         <div class="w-full md:w-5/12 aspect-square relative group overflow-hidden rounded-lg order-1 md:order-2 animate-float">
-                            <div class="absolute inset-0 bg-yellow-600/20 blur-2xl animate-pulse"></div>
+                            <div class="absolute inset-0 bg-yellow-600/20 blur-2xl animate-pulse-slow"></div>
+                            
                             <div class="relative h-full bg-neutral-900 border border-yellow-600/30 flex flex-col items-center justify-center p-6 text-center shadow-2xl transition-all duration-500 scale-[1.02]">
                                 <div class="shimmer-effect opacity-100"></div>
+                                
                                 <div class="w-full h-full border border-white/5 flex flex-col items-center justify-center p-4 relative z-10">
                                     <i data-lucide="dumbbell" class="text-yellow-600 mb-4 scale-110 w-8 h-8"></i>
                                     <h3 class="font-title font-bold text-2xl text-white leading-tight tracking-wider">TRAINING<br/>STANDARD</h3>
                                     <div class="w-16 h-px bg-yellow-500 my-3"></div>
                                     <span class="font-heading text-[9px] uppercase tracking-widest text-yellow-500/80 font-bold">5 Blueprints</span>
                                 </div>
+
                                 <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-yellow-600/50"></div>
                                 <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-yellow-600/50"></div>
                                 <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-yellow-600/50"></div>
@@ -181,15 +228,18 @@
                         <div class="bg-[#080808] rounded-xl p-8 md:p-10 flex flex-col md:flex-row gap-10 items-center">
                             
                             <div class="w-full md:w-5/12 aspect-[3/4] relative group overflow-hidden rounded-lg animate-float">
-                                <div class="absolute inset-0 bg-yellow-600/20 blur-2xl animate-pulse"></div>
+                                <div class="absolute inset-0 bg-yellow-600/20 blur-2xl animate-pulse-slow"></div>
+                                
                                 <div class="relative h-full bg-neutral-900 border border-yellow-600/30 flex flex-col items-center justify-center p-6 text-center shadow-2xl transition-all duration-500 scale-[1.02]">
                                     <div class="shimmer-effect opacity-100"></div>
+                                    
                                     <div class="w-full h-full border border-white/5 flex flex-col items-center justify-center p-4 relative z-10">
                                         <i data-lucide="database" class="text-yellow-600 mb-4 scale-110 w-8 h-8"></i>
                                         <h3 class="font-title font-bold text-xl text-white leading-tight tracking-wider">CREATOR<br/>VAULT</h3>
                                         <div class="w-16 h-px bg-yellow-500 my-3"></div>
                                         <span class="font-heading text-[9px] uppercase tracking-widest text-yellow-500/80 font-bold">Limited Access</span>
                                     </div>
+
                                     <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-yellow-600/50"></div>
                                     <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-yellow-600/50"></div>
                                     <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-yellow-600/50"></div>
@@ -254,24 +304,43 @@
 
     <div id="privacy-popup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in hidden">
         <div class="glass-panel w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-xl border border-yellow-600/30 shadow-[0_0_50px_rgba(202,138,4,0.1)] bg-[#0a0a0a] flex flex-col relative animate-popup">
+            
             <div class="p-6 border-b border-white/5 flex justify-between items-center bg-black/40">
                 <h2 class="font-title text-xl text-white font-bold tracking-wide">Privacy Policy</h2>
                 <button onclick="closePopup('privacy-popup')" class="text-gray-400 hover:text-white transition-colors p-1 hover:bg-white/5 rounded-full">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
-            <div class="p-8 overflow-y-auto font-inter text-sm leading-relaxed text-gray-400 space-y-6">
+
+            <div class="p-8 overflow-y-auto custom-scrollbar font-inter text-sm leading-relaxed text-gray-400 space-y-6">
                 <div>
                     <p class="font-heading text-yellow-500 text-xs font-bold uppercase tracking-widest mb-2">Last Updated: February 9, 2026</p>
                     <h3 class="text-white font-heading font-bold text-lg mb-2">Introduction</h3>
-                    <p>This Privacy Policy describes how The Legacy Hub collects, uses, and shares your personal information.</p>
+                    <p>This Privacy Policy describes how The Legacy Hub collects, uses, and shares your personal information when you visit legacyhub.cc.</p>
                 </div>
                 <div>
                     <h3 class="text-white font-heading font-bold text-lg mb-3">Information We Collect</h3>
                     <ul class="list-disc pl-5 space-y-2 marker:text-yellow-600">
-                        <li><strong class="text-gray-200">Voluntary Information:</strong> We collect information you provide directly to us.</li>
-                        <li><strong class="text-gray-200">Automated Information:</strong> We automatically collect certain information about your device.</li>
+                        <li><strong class="text-gray-200">Voluntary Information:</strong> We collect information you provide directly to us, such as your name and email address when you sign up for our newsletter or contact us.</li>
+                        <li><strong class="text-gray-200">Automated Information:</strong> We automatically collect certain information about your device, including your IP address, browser type, and how you interact with the Site via cookies and tracking pixels.</li>
                     </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-heading font-bold text-lg mb-3">How We Use Your Information</h3>
+                    <p class="mb-2">We use the information we collect to:</p>
+                    <ul class="list-disc pl-5 space-y-2 marker:text-yellow-600">
+                        <li>Provide and maintain our services.</li>
+                        <li>Send you marketing communications and updates (you may opt out at any time).</li>
+                        <li>Analyze site traffic to improve user experience.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-heading font-bold text-lg mb-3">Third-Party Sharing</h3>
+                    <p>We do not sell your personal data. We may share information with service providers (such as email marketing platforms or hosting providers) strictly to perform functions on our behalf.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-heading font-bold text-lg mb-3">Your Rights</h3>
+                    <p>Depending on your location, you may have the right to access, correct, or delete your personal data. To make a request, please contact us at <span class="text-yellow-500">support@legacyhub.cc</span>.</p>
                 </div>
             </div>
         </div>
@@ -279,20 +348,45 @@
 
     <div id="terms-popup" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in hidden">
         <div class="glass-panel w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-xl border border-yellow-600/30 shadow-[0_0_50px_rgba(202,138,4,0.1)] bg-[#0a0a0a] flex flex-col relative animate-popup">
+            
             <div class="p-6 border-b border-white/5 flex justify-between items-center bg-black/40">
                 <h2 class="font-title text-xl text-white font-bold tracking-wide">Terms of Service</h2>
                 <button onclick="closePopup('terms-popup')" class="text-gray-400 hover:text-white transition-colors p-1 hover:bg-white/5 rounded-full">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
-            <div class="p-8 overflow-y-auto font-inter text-sm leading-relaxed text-gray-400 space-y-6">
+
+            <div class="p-8 overflow-y-auto custom-scrollbar font-inter text-sm leading-relaxed text-gray-400 space-y-6">
                 <div>
+                    <p class="font-heading text-yellow-500 text-xs font-bold uppercase tracking-widest mb-2">Last Updated: February 9, 2026</p>
+                    
                     <h3 class="text-white font-heading font-bold text-lg mb-3">1. Agreement to Terms</h3>
-                    <p>By accessing or using legacyhub.cc, you agree to be bound by these Terms of Service.</p>
+                    <p>By accessing or using legacyhub.cc, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use this Site.</p>
                 </div>
+
                 <div>
                     <h3 class="text-white font-heading font-bold text-lg mb-3">2. Intellectual Property</h3>
-                    <p>All content is the property of The Legacy Hub and is protected by copyright laws.</p>
+                    <p>All content, including text, graphics, logos, and code, is the property of The Legacy Hub and is protected by international copyright laws. Unauthorized use of any content is strictly prohibited.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-heading font-bold text-lg mb-3">3. User Obligations</h3>
+                    <p>You agree not to use the Site for any unlawful purpose or any purpose prohibited under this clause. You agree not to use the Site in any way that could damage the Site or general business of The Legacy Hub.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-heading font-bold text-lg mb-3">4. Disclaimer of Warranties</h3>
+                    <p>This Site is provided on an "as-is" and "as-available" basis. The Legacy Hub makes no warranties, expressed or implied, regarding the accuracy or reliability of the content provided on this landing page.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-heading font-bold text-lg mb-3">5. Limitation of Liability</h3>
+                    <p>In no event shall The Legacy Hub be liable for any damages arising out of the use or inability to use the materials on this Site, even if we have been notified of the possibility of such damage.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-heading font-bold text-lg mb-3">6. Governing Law</h3>
+                    <p>These terms are governed by and construed in accordance with the laws of Your Country/State, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
                 </div>
             </div>
         </div>
@@ -307,6 +401,7 @@
             const popup = document.getElementById(id);
             popup.classList.remove('hidden');
             
+            // Auto-hide for contact popup
             if (id === 'contact-popup') {
                 setTimeout(() => {
                     popup.classList.add('hidden');
